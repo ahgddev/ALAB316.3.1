@@ -50,8 +50,8 @@ topMenuEl.addEventListener("click", function(event){
     event.preventDefault()
     let currentTargetText = event.target.textContent;
     let targetObject = menuLinks.find(linkObject => linkObject.text == currentTargetText)
-    console.log(event.target)
-    if(!event.target.classList.active){
+
+    if(!event.target.classList.contains("active")){
         if(targetObject.hasOwnProperty("subLinks")){
             subMenuEl.style.top = "100%"
         } else {
@@ -62,10 +62,16 @@ topMenuEl.addEventListener("click", function(event){
                 aLink.classList.remove("active")
             }
         }
-        event.target.classList.add("active")
-    } else {
+        if(event.target == event.currentTarget){
+            event.target.classList.remove("active")
+            subMenuEl.style.top = "0"
+        } else {
+            event.target.classList.add("active")
+        }
+        console.log(event.target.classList.active)
+    } else if(event.target.classList.contains("active")) {
         event.target.classList.remove("active")
+        subMenuEl.style.top = "0"
     }
-
     return !topMenuLinks
   });
