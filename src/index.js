@@ -84,6 +84,9 @@ topMenuEl.addEventListener("click", function(event){
             subMenuEl.style.top = "0"
         } else {
             event.target.classList.add("active")
+            if(currentTargetText == "about"){
+                mainEl[0].innerHTML = "<h1>About</h1>"
+            }
         }
     } else if(event.target.classList.contains("active")) {
         event.target.classList.remove("active")
@@ -96,5 +99,10 @@ topMenuEl.addEventListener("click", function(event){
   subMenuEl.addEventListener("click", function(event){
     event.preventDefault()
     subMenuEl.style.top = 0;
-
+    for(aLink of topMenuLinks){
+        aLink.classList.remove("active")
+    }
+    let currentTargetText = event.target.textContent;
+    console.log(currentTargetText)
+    mainEl[0].innerHTML = `<h1> ${currentTargetText} </h1>`
   });
