@@ -47,6 +47,16 @@ for (link of menuLinks){
 let topMenuLinks = topMenuEl.getElementsByTagName("a")
 topMenuEl.addEventListener("click", function(event){
     event.preventDefault()
+    if(!event.target.classList.active){
+        for(aLink of topMenuLinks){
+            if (aLink != event.currentTarget){
+                aLink.classList.remove("active")
+            }
+        }
+        event.target.classList.add("active")
+    } else {
+        event.target.classList.remove("active")
+    }
     console.log(event.target)
     return !topMenuLinks
   });
