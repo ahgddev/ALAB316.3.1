@@ -35,7 +35,7 @@ for (link of menuLinks){
    newLink.innerText = link.text
    console.log(link.href, link.text)
 }
-
+//Part 3: Creating the Submenu
  let subMenuEl = document.getElementById("sub-menu")
     subMenuEl.style.height = "100%";
     subMenuEl.style.backgroundColor = "var(--sub-menu-bg)";
@@ -43,17 +43,33 @@ for (link of menuLinks){
     subMenuEl.style.position = "absolute";
     subMenuEl.style.top = "0";
  
+//Part 5: Adding Submenu Interaction
+function buildSubmenu(subArray){
+    //Make the submenu items, removing any old ones first.
+    while (subMenuEl.firstChild) {
+        subMenuEl.removeChild(subMenuEl.firstChild);
+    }
+    for(linkItem of subArray){
+        let newLink = subMenuEl.appendChild(document.createElement("a"))
+        newLink.href = linkItem.href
+        newLink.innerText = linkItem.text
+    }
+}
 
 let topMenuLinks = topMenuEl.getElementsByTagName("a")
 //Do and check things when clicked
 topMenuEl.addEventListener("click", function(event){
     event.preventDefault()
+    //Grab the target link's text and grab the matching object from menuLinks
     let currentTargetText = event.target.textContent;
     let targetObject = menuLinks.find(linkObject => linkObject.text == currentTargetText)
 
+    //Part 4: Adding Menu Interaction
     if(!event.target.classList.contains("active")){
+        //If event isn't active, first check if it has sublinks. Then display those sublinks or hide them.
         if(targetObject.hasOwnProperty("subLinks")){
             subMenuEl.style.top = "100%"
+            buildSubmenu(targetObject.subLinks)
         } else {
             subMenuEl.style.top = "0"
         }
@@ -62,16 +78,23 @@ topMenuEl.addEventListener("click", function(event){
                 aLink.classList.remove("active")
             }
         }
+        //Remove the active status if the currentTarget has been clicked again and hide the submenu
         if(event.target == event.currentTarget){
             event.target.classList.remove("active")
             subMenuEl.style.top = "0"
         } else {
             event.target.classList.add("active")
         }
-        console.log(event.target.classList.active)
     } else if(event.target.classList.contains("active")) {
         event.target.classList.remove("active")
         subMenuEl.style.top = "0"
     }
     return !topMenuLinks
+  });
+
+//Add interactions to the submenu items for part 5
+  subMenuEl.addEventListener("click", function(event){
+    event.preventDefault()
+    subMenuEl.style.top = 0;
+
   });
