@@ -66,7 +66,7 @@ topMenuEl.addEventListener("click", function(event){
 
     //Part 4: Adding Menu Interaction
     if(!event.target.classList.contains("active")){
-        //If event isn't active, first check if it has sublinks. Then display those sublinks or hide them.
+        //If the target isn't active, first check if it has sublinks. Then display those sublinks or hide them.
         if(targetObject.hasOwnProperty("subLinks")){
             subMenuEl.style.top = "100%"
             buildSubmenu(targetObject.subLinks)
@@ -102,7 +102,7 @@ topMenuEl.addEventListener("click", function(event){
     for(aLink of topMenuLinks){
         aLink.classList.remove("active")
     }
-    let currentTargetText = event.target.textContent;
+    let currentTargetText = event.target.textContent.toUpperCase();
     console.log(currentTargetText)
     mainEl[0].innerHTML = `<h1> ${currentTargetText} </h1>`
   });
