@@ -45,9 +45,18 @@ for (link of menuLinks){
  
 
 let topMenuLinks = topMenuEl.getElementsByTagName("a")
+//Do and check things when clicked
 topMenuEl.addEventListener("click", function(event){
     event.preventDefault()
+    let currentTargetText = event.target.textContent;
+    let targetObject = menuLinks.find(linkObject => linkObject.text == currentTargetText)
+    console.log(event.target)
     if(!event.target.classList.active){
+        if(targetObject.hasOwnProperty("subLinks")){
+            subMenuEl.style.top = "100%"
+        } else {
+            subMenuEl.style.top = "0"
+        }
         for(aLink of topMenuLinks){
             if (aLink != event.currentTarget){
                 aLink.classList.remove("active")
@@ -57,6 +66,6 @@ topMenuEl.addEventListener("click", function(event){
     } else {
         event.target.classList.remove("active")
     }
-    console.log(event.target)
+
     return !topMenuLinks
   });
